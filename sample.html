@@ -1,0 +1,204 @@
+<html>
+<head>
+	<title>Mendeley Readership Locations</title>
+	<script type="text/javascript">
+    // code for IE9+, Firefox, Chrome, Opera, Safari
+	
+		var oauth_params = null;
+		var mendeley_app_id = "777";
+		var mendeley_auth_endpoint = "https://api.mendeley.com/oauth/authorize?"; 
+		var document_version_type = 'application/vnd.mendeley-document.1+json';
+		
+		
+		function init() {
+			// Invoked when the page is loaded
+			// Determines if valid OAuth access token exists
+			// Shows or hides the map based on the existence of valid OAuth params
+			extractOAuthParams();
+			if (oauth_params == null || oauth_params.access_token == null) {
+				document.getElementById('usage').style.display = "none";
+				document.getElementById('login').style.display = "block";
+			} else {
+				document.getElementById('usage').style.display = "block";
+				document.getElementById('login').style.display = "none";
+				loadUserDocuments();
+			}
+		}
+		
+		
+		function displayAuthorization() {
+			// Ask the browser to display to display the OAuth authorization
+			// panel to the user. Once the user has completed, the browser will redirect
+			// back to this page
+			var auth_url = mendeley_auth_endpoint + "response_type=token&scope=all";
+			auth_url = auth_url + "&client_id=" + mendeley_app_id;
+			auth_url = auth_url + "&redirect_uri=";
+			auth_url = auth_url + encodeURIComponent(document.location.origin + document.location.pathname);
+			
+			// Set the state parameter value and store in a cookie for later comparison
+			var oauth_state_context = Math.random() * new Date();
+			auth_url = auth_url + "&state=" + oauth_state_context;
+			document.cookie = "oauth_state_context=" + oauth_state_context;
+			
+			// Display the authorization panel
+			document.location = auth_url
+		}
+		
+		
+		function extractOAuthParams() {
+			// Extracts the params from the URL hash, if it exists,
+			// into key value pairs in the oauth_params variable
+			// Expected keys are 'access_token' and 'state'
+			if (location.hash == "") return;
+			oauth_params = {};
+			queryString = location.hash.substring(1);
+			regex = /([^&=]+)=([^&]*)/g;
+			while (m = regex.exec(queryString)) {
+			  oauth_params[decodeURIComponent(m[1])] = decodeURIComponent(m[2]);
+			}
+			// Check the state variable is the same value that was sent
+			// with the request. See http://dev.mendeley.com/reference/topics/authorization_implicit.html
+			if (oauth_params.state !== getCookie("oauth_state_context")) {
+  			  alert("Check for Cross-site request forgery");
+			  oauth_params = null;
+			}
+		}
+	
+	
+		function getCookie(name) {
+			// Parse the cookies string and return the value for the
+			// supplied cookie name
+		  	match = document.cookie.match(new RegExp(name + '=([^;]+)'));
+			if (match) return match[1];
+		}
+		
+		
+		function loadUserDocuments() {
+			// Creates an AJAX request to Mendeley API /documents.
+			// Authorizes request using OAuth access token and sets the version MIME type
+			// Parses successful repsonse and adds options for popup menu listing
+			// user's documents if the document has a DOI identifier
+			// When complete, getStatsitics is invoked, coloring the map 
+			// Invoked from init, on initial load, if OAuth params are available
+			var xmlhttp = new XMLHttpRequest();
+			var data;
+			
+			xmlhttp.onreadystatechange = function() {
+			        if (xmlhttp.readyState == 4 ) {
+			           if(xmlhttp.status == 200){
+						   // Populate the popup menu
+						   	data = JSON.parse(xmlhttp.responseText);
+
+							popup_menu = document.getElementById("user_doc_popup");
+							for (i=0;i<data.length;i++) {
+				
+								if (data[i].identifiers && data[i].identifiers.doi) {
+								    var option = document.createElement("option");
+								    option.textContent = data[i].title;
+									option.value = data[i].identifiers.doi;
+									popup_menu.appendChild(option);
+								}
+							}
+							getStatistics(); // update the map for the first item in popup
+			           }
+			           else if(xmlhttp.status == 401) {
+						  displayAuthorization(); // ask user to reauthorize
+			           }
+			           else if(xmlhttp.status == 400) {
+			              alert('There was an error 400')
+			           }
+			           else {
+			               alert('something else other than 200 was returned: ' + xmlhttp.status);
+						   
+			           }
+			        }
+			    }
+
+			    xmlhttp.open("GET", "https://api.mendeley.com/documents", true);
+				xmlhttp.setRequestHeader("Authorization", "Bearer " + oauth_params.access_token);
+				xmlhttp.setRequestHeader("Accept", document_version_type); // set the resource version
+			    xmlhttp.send();
+		}
+		
+		
+		function getStatistics() {
+			// Creates an AJAX request to Mendeley API /catalog to fetch reading stats.
+			// Authorizes request using OAuth access token and sets the version MIME type
+			// On successful response, loops through each map region and matches title
+			// attribute in SVG against a country in the API response: 
+			//     data.reader_count_by_country.country
+			// Normally invoked when the user selects a different document from popup
+			doi = document.getElementById('user_doc_popup').value;
+			
+			var xmlhttp = new XMLHttpRequest();
+			var data;
+			
+			xmlhttp.onreadystatechange = function() {
+			        if (xmlhttp.readyState == 4 ) {
+			           if(xmlhttp.status == 200){
+						   
+					   	data = JSON.parse(xmlhttp.responseText);
+
+						map_regions = map.contentDocument.getElementsByClassName('land');
+						for (var i=0;i<map_regions.length;i++) {
+							var map_region = map_regions[i].getAttribute("title");
+							
+							if (data[0].reader_count_by_country != null && 
+								data[0].reader_count_by_country[map_region] > 0) {
+								map_regions[i].style.fill = "rgb(157, 22, 32)";
+							} else {
+								map_regions[i].style.fill = "rgb(204,204,204)";
+							}
+						}						
+			           }
+			           else if(xmlhttp.status == 401) {
+						  displayAuthorization(); // ask user to reauthorize
+			           }
+					   else {
+			               alert('something else other than 200 was returned: '+ xmlhttp.status);
+			           }
+					   
+			        }
+			    }
+				
+				var request_url = "https://api.mendeley.com/catalog?";
+				request_url = request_url + "doi=" + encodeURIComponent(doi);
+				request_url = request_url + "&view=stats"; // include statistics in response
+			    xmlhttp.open("GET", request_url, true);
+				xmlhttp.setRequestHeader("Authorization", "Bearer " + oauth_params.access_token);
+				xmlhttp.setRequestHeader("Accept", document_version_type); // set the resource version
+			    xmlhttp.send();
+		}
+		
+	</script>
+	
+	
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<style type="text/css" media="screen">
+		body {font-family:"Helvetica Neue", Arial, Sans-Serif;text-align:center;}
+		#usage {display:none;}
+		#login {display:block;}
+		.button {width:200px;padding:10px;margin: 10px auto;border-radius:10px;cursor:pointer;background-color: rgb(157, 22, 32);color:white;}
+		#map {margin:0 auto;}
+		#dev_reset {position:absolute; top:0;right:20px;}
+		.credit, .credit a {font-size:9px; color:#aaa;}
+		#user_doc_popup{max-width:200px;}
+	</style>
+</head>
+	
+	
+<body id="sample" onload="init();">
+	<h1>Readership Locations</h1>
+	
+	<div id="usage">
+		<div>Document: <select id="user_doc_popup" onchange="getStatistics()"></select></div>
+		<object id="map" data="world_low.svg" width="1024" height="660" type="image/svg+xml"></object>
+		<p id="dev_reset"><a href="http://localhost/mendeley/sample.html">Reset</a></p>
+		<p class="credit">World Map by <a href="http://www.amcharts.com">AmCharts</a> is licensed under <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC BY 4.0</a>
+	</div>
+	<div id="login">
+		<p>To use this app, please authorize using your Mendeley credentials</p>
+		<div class="button login" onclick="displayAuthorization();">Authorize App</div>
+	</div>
+</body>	
+</html>
