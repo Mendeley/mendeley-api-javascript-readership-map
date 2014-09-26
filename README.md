@@ -2,6 +2,8 @@
 
 This is a simple example of an application that consumes the [Mendeley](http://www.mendeley.com) API.  For more information about the API, see the [developer portal](http://dev.mendeley.com).
 
+We have a version of it hosted [here](http://mendeley-locations.herokuapp.com) 
+
 ## About the application
 
 A JavaScript example page showing document reader locations are plotted onto a world map. The example takes advantage of matching country names in the SVG map and the reading statistics by country of a *catalog* document.
