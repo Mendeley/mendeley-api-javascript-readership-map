@@ -6,7 +6,7 @@ This is a revised version, now using [the Mendeley Javascript SDK](https://githu
 
 ## About the application
 
-A JavaScript example page showing document reader locations are plotted onto a world map. The example takes advantage of matching country names in the SVG map and the reading statistics by country of a *catalog* document.
+A JavaScript example page showing document reader locations plotted onto a world map. The example takes advantage of matching country names in the SVG map and the reading statistics by country of a *catalog* document. A color with an alpha value is used to fill country regions so that it reflects the relative number of readers
 
 	** API response **
 	"reader_count_by_country": {
@@ -52,4 +52,3 @@ This sample code illustrates:
 Once you've understood how the sample code works, try enhancing it by:
 
 * Cache the results of catalog document responses to avoid repeatedly performing identical API requests each time the user changes document in the popup menu
-* Use a map color with an alpha value appended `rgba(157, 22, 32, 0.5)` to fill country regions with a color that reflects the relative number of readers

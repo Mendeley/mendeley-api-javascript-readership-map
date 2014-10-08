@@ -29,7 +29,9 @@ var populateDropdown = function (docs) {
 };
 
 var updateMap = function (stats) {
-	var arrayData = {};
+	var arrayData = {},
+		maxCount = 0,
+		ratio;
 	$.each(stats, function(i, obj) {
 		if (obj.reader_count_by_country) {
 			for (var property in obj.reader_count_by_country) {
@@ -38,6 +40,7 @@ var updateMap = function (stats) {
 				} else {
 					arrayData[property] = obj.reader_count_by_country[property];
 				}
+				maxCount = Math.max(maxCount, arrayData[property]);
 			}
 		}
 	});
@@ -45,7 +48,8 @@ var updateMap = function (stats) {
 	for (var index = 0; index < map_regions.length; index++) {
 		var map_region = map_regions[index].getAttribute("title");
 		if (arrayData[map_region]) {
-			map_regions[index].style.fill = "rgb(157, 22, 32)";
+			ratio = arrayData[map_region]/maxCount;
+			map_regions[index].style.fill = "rgba(157, 22, 32, " + ratio + ")";
 		} else {
 			map_regions[index].style.fill = "rgb(204,204,204)";
 		}

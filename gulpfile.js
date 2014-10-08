@@ -34,10 +34,10 @@ gulp.task('default', ['clean'], function() {
 
 gulp.task('watch', function() {
     // Watch .css files
-    gulp.watch('application/*.css', ['styles']);
+    gulp.watch('application/src/*.css', ['styles']);
 
     // Watch .js files
-    gulp.watch('application/*.js', ['scripts']);
+    gulp.watch('application/src/*.js', ['scripts']);
 
     // Create LiveReload server
     livereload.listen();
