@@ -37,7 +37,7 @@ This sample code illustrates:
   * Note: The default server address is <em>http://localhost:8111/application/</em>
 4. Run this command:
 
-        $ cp bower-components/mendeley-javascript-sdk/examples/oauth-config.auth-code.js.dist application/oauth-config.js
+        $ cp bower_components/mendeley-javascript-sdk/examples/oauth-config.implicit-grant.js.dist application/oauth-config.js
 
 5. Fill in your ClientID in the <em>application/oatuh-config.js</em> file.
 6. Run the following commands: 
