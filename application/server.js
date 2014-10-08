@@ -10,7 +10,7 @@
 /* jshint camelcase: false */
 'use strict';
 
-var config = require('./oauth-config');
+var config = require('./src/oauth-config');
 var express = require('express');
 
 var app = express();
