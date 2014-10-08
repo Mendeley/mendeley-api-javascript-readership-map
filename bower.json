@@ -3,13 +3,15 @@
   "version": "0.0.0",
   "homepage": "https://github.com/Alex-Radu/mendeley-api-javascript-readership-map",
   "authors": [
-    "Alex-Radu <alex.radu@mendeley.com>"
+    "The Mendeley Team"
   ],
   "description": "Readership Map App",
   "keywords": [
     "mendeley",
     "api",
-    "sdk"
+    "sdk",
+    "map",
+    "readers"
   ],
   "license": "MIT",
   "private": true,
