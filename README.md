@@ -2,7 +2,7 @@
 
 This is a simple example of an application that consumes the [Mendeley](http://www.mendeley.com) API.  For more information about the API, see the [developer portal](http://dev.mendeley.com).
 
-This is a revised version version, now using [the Mendeley Javascript SDK](https://git.mendeley.com/projects/WWW/repos/mendeley-javascript-sdk/browse) to communicate with the server.
+This is a revised version version, now using [the Mendeley Javascript SDK](https://github.com/Mendeley/mendeley-javascript-sdk) to communicate with the server.
 
 ## About the application
 
@@ -28,12 +28,24 @@ This sample code illustrates:
 
 ## How to run
 
+1. Clone this git repository onto your machine.
+2. Using [bower](http://bower.io/) run the following command:
 
-1. Host the HTML file and SVG on a web server—this can be a local server running on your workstation.
-* Register your client at the Mendeley [developer portal](http://dev.mendeley.com/yourapps.html). The value for Redirect URL must be the location you hosted the page at in the previous step.
-* Edit the Javascript, in the HTML file, and replace the value ("777") for the variable `mendeley_app_id` *(line 8)* with your application ID from the developer portal.
-* Ensure you have a number of documents imported from the catalog in your Mendeley library. A document must have a DOI identifier to be included in the sample tool.
-* Open the page in your web browser.
+	$ bower install mendeley-javascript-sdk
+
+3. Go to [the Mendeley developers site](http://dev.mendeley.com), sign-in with your Mendeley account details and click on "My Apps" and follow the instructions to register a new application and get your ClientID.
+Note: The default server address is http://localhost:8111/application/
+4. Run this command:
+
+	$ cp bower-components/mendeley-javascript-sdk/examples/oauth-config.auth-code.js.dist application/oauth-config.js
+
+5. Fill in your ClientID in the 'application/oatuh-config.js' file.
+6. Run the following commands: 
+
+	$ npm install
+	$ npm start
+
+7. Go to http://localhost:8111/application/ in your browser and you should be redirected to log-in to Mendeley. Once logged in you'll be redirected back to the application.
 		
 ## Suggestions for exploration
 
