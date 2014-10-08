@@ -2,7 +2,7 @@
 
 This is a simple example of an application that consumes the [Mendeley](http://www.mendeley.com) API.  For more information about the API, see the [developer portal](http://dev.mendeley.com).
 
-This is a revised version version, now using [the Mendeley Javascript SDK](https://github.com/Mendeley/mendeley-javascript-sdk) to communicate with the server.
+This is a revised version, now using [the Mendeley Javascript SDK](https://github.com/Mendeley/mendeley-javascript-sdk) to communicate with the server.
 
 ## About the application
 
