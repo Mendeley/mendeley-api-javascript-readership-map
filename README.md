@@ -31,7 +31,7 @@ This sample code illustrates:
 1. Clone this git repository onto your machine.
 2. Using [bower](http://bower.io/) run the following command:
 
-        $ bower install mendeley-javascript-sdk
+        $ bower install
 
 3. Go to [the Mendeley developers site](http://dev.mendeley.com), sign-in with your Mendeley account details and click on "My Apps" and follow the instructions to register a new application and get your ClientID.
   * Note: The default server address is <em>http://localhost:8111/application/</em>

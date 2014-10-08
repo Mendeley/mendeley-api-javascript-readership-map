@@ -17,7 +17,7 @@ gulp.task('styles', function() {
 });
 
 gulp.task('scripts', function() {
-    return gulp.src('application/readership-map.js', 'application/oauth-config.js')
+    return gulp.src(['application/oauth-config.js', 'application/readership-map.js'])
         .pipe(uglify())
         .pipe(concat('main.min.js'))
         .pipe(gulp.dest('application'))

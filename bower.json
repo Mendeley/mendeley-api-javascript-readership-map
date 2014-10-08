@@ -1,0 +1,26 @@
+{
+  "name": "mendeley-api-javascript-readership-map",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Alex-Radu/mendeley-api-javascript-readership-map",
+  "authors": [
+    "Alex-Radu <alex.radu@mendeley.com>"
+  ],
+  "description": "Readership Map App",
+  "keywords": [
+    "mendeley",
+    "api",
+    "sdk"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "mendeley-javascript-sdk": "~0.1.1"
+  }
+}

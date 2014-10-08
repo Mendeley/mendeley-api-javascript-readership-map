@@ -27,18 +27,13 @@
             // Set authentication method based on config
             if (typeof window.oauthImplicitGrantConfig === 'object') {
             	MendeleySDK.API.setAuthFlow(MendeleySDK.Auth.implicitGrantFlow(window.oauthImplicitGrantConfig));
+            	$(document).ready(getDocuments);
+            	$("#user_doc_popup").on("change", getCatalog);
+            } else {
+            	console.log("something is wrong");
             }
-            else {
-                // Auth code flow can be configured with a couple fo extra URLs...
-                MendeleySDK.API.setAuthFlow(MendeleySDK.Auth.authCodeFlow({
-                    // The API authentication goes through server, so this URL clears cookies and forces a redirect
-                    apiAuthenticateUrl: '/logout',
-                    // You can optionally provide a URL on *your* server where the token can be refreshed
-                    refreshAccessTokenUrl: '/oauth/refresh'
-                }));
-            }
-            $(document).ready(getDocuments);
-            $("#user_doc_popup").on("change", getCatalog);
+            
+            
         });
 	</script>	
 </body>	
