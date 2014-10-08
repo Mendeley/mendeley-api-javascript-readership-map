@@ -2,7 +2,7 @@
 
 This is a simple example of an application that consumes the [Mendeley](http://www.mendeley.com) API.  For more information about the API, see the [developer portal](http://dev.mendeley.com).
 
-We have a version of it hosted [here](http://mendeley-locations.herokuapp.com) 
+This is a revised version version, now using [the Mendeley Javascript SDK](https://git.mendeley.com/projects/WWW/repos/mendeley-javascript-sdk/browse) to communicate with the server.
 
 ## About the application
 
