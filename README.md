@@ -34,18 +34,18 @@ This sample code illustrates:
         $ bower install mendeley-javascript-sdk
 
 3. Go to [the Mendeley developers site](http://dev.mendeley.com), sign-in with your Mendeley account details and click on "My Apps" and follow the instructions to register a new application and get your ClientID.
-  * Note: The default server address is http://localhost:8111/application/
+  * Note: The default server address is <em>http://localhost:8111/application/</em>
 4. Run this command:
 
         $ cp bower-components/mendeley-javascript-sdk/examples/oauth-config.auth-code.js.dist application/oauth-config.js
 
-5. Fill in your ClientID in the 'application/oatuh-config.js' file.
+5. Fill in your ClientID in the <em>application/oatuh-config.js</em> file.
 6. Run the following commands: 
 
         $ npm install
         $ npm start
 
-7. Go to http://localhost:8111/application/ in your browser and you should be redirected to log-in to Mendeley. Once logged in you'll be redirected back to the application.
+7. Go to <em>http://localhost:8111/application/</em> in your browser and you should be redirected to log-in to Mendeley. Once logged in you'll be redirected back to the application.
 		
 ## Suggestions for exploration
 
