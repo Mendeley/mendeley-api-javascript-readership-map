@@ -38,11 +38,11 @@ This sample code illustrates:
 4. Run this command to enable the authentication script:
   * On Mac OS / Unix
 
-        $ cp bower_components/mendeley-javascript-sdk/examples/oauth-config.implicit-grant.js.dist application/oauth-config.js
+            $ cp bower_components/mendeley-javascript-sdk/examples/oauth-config.implicit-grant.js.dist application/oauth-config.js
 
   * On Windows
 
-        $ copy bower_components/mendeley-javascript-sdk/examples/oauth-config.implicit-grant.js.dist application/oauth-config.js
+            $ copy bower_components/mendeley-javascript-sdk/examples/oauth-config.implicit-grant.js.dist application/oauth-config.js
 
 5. Fill in your ClientID in the <em>application/oatuh-config.js</em> file.
 6. Run the following commands: 
