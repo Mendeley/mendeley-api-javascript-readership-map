@@ -35,9 +35,14 @@ This sample code illustrates:
 
 3. Go to [the Mendeley developers site](http://dev.mendeley.com), sign-in with your Mendeley account details and click on "My Apps" and follow the instructions to register a new application and get your ClientID.
   * Note: The default server address is <em>http://localhost:8111/application/</em>
-4. Run this command:
+4. Run this command to enable the authentication script:
+  * On Mac OS / Unix
 
         $ cp bower_components/mendeley-javascript-sdk/examples/oauth-config.implicit-grant.js.dist application/oauth-config.js
+
+  * On Windows
+
+        $ copy bower_components/mendeley-javascript-sdk/examples/oauth-config.implicit-grant.js.dist application/oauth-config.js
 
 5. Fill in your ClientID in the <em>application/oatuh-config.js</em> file.
 6. Run the following commands: 
