@@ -50,6 +50,8 @@ This sample code illustrates:
         $ npm install
         $ npm start
 
+  * Note: If you get an error, try running the first command as <em>sudo npm install</em>
+
 7. Go to <em>http://localhost:8111/application/</em> in your browser and you should be redirected to log-in to Mendeley. Once logged in you'll be redirected back to the application.
 		
 ## Suggestions for exploration
