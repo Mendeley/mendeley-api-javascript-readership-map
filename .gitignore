@@ -4,7 +4,7 @@ bower_components/
 node_modules/
 
 #--Ignore oauth-config for security reasons
-application/src/oauth-config.js
+application/oauth-config.js
 
 #--Ignore logs
 *.log
