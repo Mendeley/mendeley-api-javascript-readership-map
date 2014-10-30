@@ -1,0 +1,10 @@
+#--Files that should be ignored when commiting any changes.
+#--Ignore components installed through other commands described in the README.md
+bower_components/
+node_modules/
+
+#--Ignore oauth-config for security reasons
+application/oauth-config.js
+
+#--Ignore logs
+*.log

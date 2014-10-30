@@ -1,0 +1,41 @@
+<html>
+<head>
+	<title>Mendeley Readership Locations</title>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" type="text/css" href="index.min.css">
+</head>
+<body id="sample">
+	<h1>Readership Locations</h1>
+	<div id="usage">
+		<div>Document: 
+			<select id="user_doc_popup"></select>
+		</div>
+		<object id="map" data="world_low.svg" width="1024" height="660" type="image/svg+xml"></object>
+		<p id="dev_reset">
+			<a href="http://localhost:8111/application/">Reset</a>
+		</p>
+		<p class="credit">World Map by 
+			<a href="http://www.amcharts.com">AmCharts</a> is licensed under <a href="http://creativecommons.org/licenses/by-nc/4.0/">CC BY 4.0</a>
+		</p>
+	</div>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script type="text/javascript" src="/dist/standalone.js"></script>
+	<script type="text/javascript" src="./main.min.js"></script>
+	<script type="text/javascript" src="./oauth-config.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			var config;
+            // Set authentication method based on config
+            if (typeof window.oauthImplicitGrantConfig === 'object') {
+            	MendeleySDK.API.setAuthFlow(MendeleySDK.Auth.implicitGrantFlow(window.oauthImplicitGrantConfig));
+            	$(document).ready(getDocuments);
+            	$("#user_doc_popup").on("change", getCatalog);
+            } else {
+            	console.log("something is wrong");
+            }
+            
+            
+        });
+	</script>	
+</body>	
+</html>
